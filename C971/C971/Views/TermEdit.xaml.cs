@@ -25,15 +25,9 @@ namespace C971.Views
             TermEnd.Date = term.TermEnd;
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            //int countCourses = await DatabaseService.GetCourseCountAsync(_selectedTermId);
-
-            //CountLabel.Text = "Courses: " + countCourses.ToString();
-
-            //CourseCollectionView.ItemsSource = await DatabaseService.GetCourses(_selectedTermId);
         }
 
         async void SaveTerm_Clicked(object sender, EventArgs e)

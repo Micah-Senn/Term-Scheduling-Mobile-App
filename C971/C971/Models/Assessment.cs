@@ -11,9 +11,10 @@ namespace C971.Models
         public int Id { get; set; }
         public int CourseId { get; set; }
         public string Name { get; set; }
-        public string Status { get; set; }
-        public bool StartNotification { get; set; }
+        public string Type { get; set; }
+        
         public DateTime CourseStart { get; set; }
         public DateTime CourseEnd { get; set; }
+        public bool StartNotification { get; set; }
     }
 }

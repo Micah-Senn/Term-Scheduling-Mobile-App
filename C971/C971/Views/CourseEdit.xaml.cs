@@ -15,9 +15,11 @@ namespace C971.Views
     public partial class CourseEdit : ContentPage
     {
         private readonly int _selectedCourseId;
+        private readonly int _selectedTermId;
         public CourseEdit(Course selectedCourse)
         {
             InitializeComponent();
+            _selectedTermId = selectedCourse.TermId;
             _selectedCourseId = selectedCourse.Id;
             CourseName.Text = selectedCourse.Name;
             CourseStatus.SelectedItem = selectedCourse.Status;
@@ -44,10 +46,10 @@ namespace C971.Views
                 return;
             }
 
-            await DatabaseService.AddCourse(_selectedCourseId, CourseName.Text, CourseStatus.SelectedItem.ToString(), Notification.IsToggled,
+            await DatabaseService.UpdateCourse(_selectedCourseId, _selectedTermId, CourseName.Text, CourseStatus.SelectedItem.ToString(), Notification.IsToggled,
                 CourseStart.Date, CourseEnd.Date, Notes.Text, InstName.Text, InstEmail.Text, InstPhone.Text);
 
-            await Navigation.PopAsync();
+            await Navigation.PopToRootAsync();
         }
 
         async void CancelCourse_Clicked(object sender, EventArgs e)

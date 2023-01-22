@@ -75,7 +75,7 @@ namespace C971.Views
             var course = (Course)e.CurrentSelection.FirstOrDefault();
             if (e.CurrentSelection != null)
             {
-                await Navigation.PushAsync((new CourseEdit(course)));
+                await Navigation.PushAsync((new CourseView(course)));
             }
         }
 

@@ -73,23 +73,23 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Name</Label>
+                                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Name:</Label>
                                 <Label Text="{Binding Name}" FontSize="Medium" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" />
                                        
 
-                                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Status</Label>
+                                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Status:</Label>
                                 <Label Text="{Binding Status}" FontSize="Medium" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center"/>
                                        
 
-                                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Start</Label>
+                                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Start:</Label>
                                 <Label Grid.Row="2" Grid.Column="1" Text="{Binding CourseStart}" FontSize="Medium" VerticalTextAlignment="Center" />
                                        
 
-                                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course End</Label>
+                                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course End:</Label>
                                 <Label Grid.Row="3" Grid.Column="1" Text="{Binding CourseEnd}" FontSize="Medium" VerticalTextAlignment="Center" />
                                        
 
-                                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Instructor Name</Label>
+                                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Instructor Name:</Label>
                                 <Label Grid.Row="4" Grid.Column="1" Text="{Binding InstName}" FontSize="Medium" VerticalTextAlignment="Center" />
                                        
 

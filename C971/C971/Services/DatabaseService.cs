@@ -121,7 +121,7 @@ namespace C971.Services
 
             return courses;
         }
-        public static async Task UpdateCourse(int id, int termId, string name, string status, bool startNotification, DateTime courseStart, DateTime courseEnd, DateTime dueDate, string notes,
+        public static async Task UpdateCourse(int id, int termId, string name, string status, bool startNotification, DateTime courseStart, DateTime courseEnd, string notes,
             string instName, string instPhone, string instEmail)
         {
             await Init();
@@ -150,14 +150,14 @@ namespace C971.Services
 
         #region Assessment Methods
 
-        public static async Task AddAssessment(int courseId, string name, string status, bool startNotification, DateTime courseStart, DateTime courseEnd)
+        public static async Task AddAssessment(int courseId, string name, string type, bool startNotification, DateTime courseStart, DateTime courseEnd)
         {
             await Init();
             var assessment = new Assessment
             {
                CourseId = courseId,
                Name = name,
-               Status = status,
+               Type = type,
                StartNotification = startNotification,
                CourseStart = courseStart,
                CourseEnd = courseEnd
@@ -173,21 +173,13 @@ namespace C971.Services
 
             await _db.DeleteAsync<Assessment>(id);
         }
-        public static async Task<IEnumerable<Assessment>> GetAssessment(int courseId)
+        public static async Task<IEnumerable<Assessment>> GetAssessments(int courseId)
         {
             var assessments = await _db.Table<Assessment>().Where(i => i.CourseId == courseId).ToListAsync();
 
             return assessments;
         }
-        public static async Task<IEnumerable<Assessment>> GetAssessments()
-        {
-            await Init();
-
-            var assessments = await _db.Table<Assessment>().ToListAsync();
-
-            return assessments;
-        }
-        public static async Task UpdateAssessment(int id, int courseId, string name, string status, bool startNotification, DateTime courseStart, DateTime courseEnd)
+        public static async Task UpdateAssessment(int id, int courseId, string name, string type, bool startNotification, DateTime courseStart, DateTime courseEnd)
         {
             await Init();
 
@@ -199,7 +191,7 @@ namespace C971.Services
             {
                 assessmentQuery.CourseId = courseId;
                 assessmentQuery.Name = name;
-                assessmentQuery.Status = status;
+                assessmentQuery.Type = type;
                 assessmentQuery.StartNotification = startNotification;
                 assessmentQuery.CourseStart = courseStart;
                 assessmentQuery.CourseEnd = courseEnd;
@@ -238,7 +230,8 @@ namespace C971.Services
             Assessment assessment = new Assessment
             {
                 CourseId = course.Id,
-                Name = "Objective Assessment",
+                Name = "Task 1",
+                Type = "Objective Assessment",
                 StartNotification = true,
                 CourseStart = DateTime.Today.Date,
                 CourseEnd = DateTime.Today.Date
@@ -247,7 +240,8 @@ namespace C971.Services
             Assessment assessment2 = new Assessment
             {
                 CourseId = course.Id,
-                Name = "Performance Assessment",
+                Name = "Task 2",
+                Type = "Performance Assessment",
                 StartNotification = true,
                 CourseStart = DateTime.Today.Date,
                 CourseEnd = DateTime.Today.Date
@@ -264,15 +258,6 @@ namespace C971.Services
             _db = null;
             _dbConnection = null;
         }
-        //public static async void LoadSampleDataSql()
-        //{
-        //    await Init();
-
-        //    int lastRowId;
-
-        //    await _db.ExecuteAsync("INSERT INTO Gadget(NAME, COLOR, INSTOCK, PRICE, CREATIONDATE) VALUES(?, ?, ?, ?, ?)", "Gadget 500 1", "Blue", 500, 500M, DateTime.Today.Date);
-        //    lastRowId = await _db.ExecuteScalarAsync<int>("SELECT last_insert_rowid()");
-        //}
         #endregion
 
         #region Count Determinations
@@ -281,6 +266,13 @@ namespace C971.Services
             int courseCount = await _db.ExecuteScalarAsync<int>("SELECT Count(*) FROM Course WHERE TermId = ?", selectedTermId);
 
             return courseCount;
+        }
+
+        public static async Task<int> GetAssessmentCountAsync(int selectedCourseId)
+        {
+            int assessmentCount = await _db.ExecuteScalarAsync<int>("SELECT Count(*) FROM Assessment WHERE CourseId = ?", selectedCourseId);
+
+            return assessmentCount;
         }
         #endregion
 
@@ -294,14 +286,6 @@ namespace C971.Services
             {
                 Console.WriteLine("Name " + termRecord.Title);
             }
-        }
-
-        public static async Task<List<Term>> GetNotifyGadgetAsync()
-        {
-            await Init();
-            var records = _dbConnection.Query<Term>("SELECT * FROM Term");
-
-            return records;
         }
 
         public static async Task<IEnumerable<Term>> GetNotificationTerms()
