@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C971.Views.AssociatedCourses">
+    
+    <NavigationPage.TitleView>
+        <Label Text="Course List" FontSize="Medium" TextColor="WhiteSmoke"></Label>
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" x:Name="AddCourse" Clicked="AddCourse_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Label Text="{Binding TermTitle}" FontSize="Title" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" x:Name="TermTitle"/>
+            <CollectionView x:Name="CourseCollectionView"
+                            ItemsSource="{Binding Courses}"
+                            EmptyView="No courses to display"
+                            SelectionMode="Single"
+                            SelectionChanged="CourseCollectionView_SelectionChanged">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+
+                <!--Define the appearance of each item in the list-->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="WhiteSmoke">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Name:</Label>
+                                <Label Text="{Binding Name}" FontSize="Medium" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" />
+
+
+                                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Status:</Label>
+                                <Label Text="{Binding Status}" FontSize="Medium" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center"/>
+
+
+                                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Start:</Label>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding CourseStart}" FontSize="Medium" VerticalTextAlignment="Center" />
+
+
+                                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course End:</Label>
+                                <Label Grid.Row="3" Grid.Column="1" Text="{Binding CourseEnd}" FontSize="Medium" VerticalTextAlignment="Center" />
+
+
+                                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Instructor Name:</Label>
+                                <Label Grid.Row="4" Grid.Column="1" Text="{Binding InstName}" FontSize="Medium" VerticalTextAlignment="Center" />
+
+
+                            </Grid>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

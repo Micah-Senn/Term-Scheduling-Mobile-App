@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,13 +29,22 @@ namespace C971.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
             
             int countCourses = await DatabaseService.GetCourseCountAsync(_selectedTermId);
 
             CountLabel.Text = "Courses: " + countCourses.ToString();
 
-            CourseCollectionView.ItemsSource = await DatabaseService.GetCourses(_selectedTermId);
+
+            if (countCourses == 0)
+            {
+                AddCourse.IsVisible = true;
+                ViewCourse.IsVisible = false;
+            }
+            else
+            {
+                AddCourse.IsVisible = false;
+                ViewCourse.IsVisible = true;
+            }
         }
 
 
@@ -55,7 +63,7 @@ namespace C971.Views
                 await DisplayAlert("Delete Canceled", "Nothing Deleted", "OK");
             }
 
-            await Navigation.PopToRootAsync();
+            await Navigation.PopAsync();
         }
 
         async void CancelTerm_Clicked(object sender, EventArgs e)
@@ -70,29 +78,16 @@ namespace C971.Views
             await Navigation.PushAsync(new CourseAdd(termId));
         }
 
-        async void CourseCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var course = (Course)e.CurrentSelection.FirstOrDefault();
-            if (e.CurrentSelection != null)
-            {
-                await Navigation.PushAsync((new CourseView(course)));
-            }
-        }
-
         async void EditTerm_Clicked(object sender, EventArgs e)
         {
 
                 await Navigation.PushAsync(new TermEdit(_currentTerm));
             }
 
-        private void SwipeItem_Invoked(object sender, EventArgs e)
+        async void ViewCourse_Clicked(object sender, EventArgs e)
         {
-
-        }
-
-        private void SwipeItem_Invoked_1(object sender, EventArgs e)
-        {
-
+            var term = _currentTerm;
+            await Navigation.PushAsync(new AssociatedCourses(term));
         }
     }
     }

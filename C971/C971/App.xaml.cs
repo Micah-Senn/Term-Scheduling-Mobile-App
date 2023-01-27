@@ -28,6 +28,7 @@ namespace C971
         protected override async void OnStart()
         {
             var courseList = await DatabaseService.GetCourses();
+            var assessList = await DatabaseService.GetAssessment();
             var notifyRandom = new Random();
             var notifyId = notifyRandom.Next(1000);
             foreach (Course courseRecord in courseList)
@@ -43,6 +44,20 @@ namespace C971
                     {
                         CrossLocalNotifications.Current.Show("Notice", $"{ courseRecord.Name} ends today!", notifyId);
 
+                    }
+                }
+            }
+            foreach (Assessment assessRecord in assessList)
+            {
+                if(assessRecord.StartNotification == true)
+                {
+                    if (assessRecord.AssessStart == DateTime.Today)
+                    {
+                        CrossLocalNotifications.Current.Show("Notice", $"{ assessRecord.Name} starts today!", notifyId);
+                    }
+                    if (assessRecord.AssessEnd == DateTime.Today)
+                    {
+                        CrossLocalNotifications.Current.Show("Notice", $"{ assessRecord.Name} ends today!", notifyId);
                     }
                 }
             }

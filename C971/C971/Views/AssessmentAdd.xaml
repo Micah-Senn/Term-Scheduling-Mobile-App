@@ -2,11 +2,51 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="C971.Views.AssessmentAdd">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="CancelAssess" Text="Cancel" Clicked="CancelAssess_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="SaveAssess" Text="Save" Clicked="SaveAssess_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <NavigationPage.TitleView>
+        <Label Text="Add Assessment" FontSize="Medium" TextColor="WhiteSmoke"></Label>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid Padding="5" RowSpacing="1" ColumnSpacing="1" BackgroundColor="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Name:</Label>
+                <Entry Text="{Binding Name}" x:Name="AssessName" Placeholder="Enter Assessment Name" FontSize="Medium" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center"></Entry>
+
+
+                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Type:</Label>
+                <Picker Grid.Row="1" Grid.Column="1" FontSize="Medium" x:Name="AssessType" Title="Assessment Type">
+                    <Picker.Items>
+                        <x:String>Objective Assessment</x:String>
+                        <x:String>Performance Assessment</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment Start:</Label>
+                <DatePicker Grid.Row="2" Grid.Column="1" x:Name="AssessStart" FontSize="Medium"></DatePicker>
+
+                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment End:</Label>
+                <DatePicker Grid.Row="3" Grid.Column="1" x:Name="AssessEnd" FontSize="Medium"></DatePicker>
+
+                <Label Grid.Row="4" Grid.Column="0" Text="Notify" FontSize="Medium"/>
+                <Switch Grid.Row="4" Grid.Column="1" x:Name="Notification" HorizontalOptions="End" IsToggled="True"/>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

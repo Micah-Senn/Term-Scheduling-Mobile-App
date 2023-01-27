@@ -23,14 +23,13 @@ namespace C971.Views
             Preferences.Clear();
         }
 
-        async void LoadSampleData_Clicked(object sender, EventArgs e)
+        private void LoadSampleData_Clicked(object sender, EventArgs e)
         {
             if (Settings.FirstRun)
             {
-                DatabaseService.LoadSampleData();
+               DatabaseService.LoadSampleData();
                 Settings.FirstRun = false;
 
-                await Navigation.PopToRootAsync();
             }
         }
 

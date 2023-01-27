@@ -33,6 +33,12 @@ namespace C971.Views
                 return;
             }
 
+            if (TermStart.Date > TermEnd.Date)
+            {
+                await DisplayAlert("Date Error", "The start date cannot be after the end date", "OK");
+                return;
+            }
+
 
             await DatabaseService.AddTerm(TermTitle.Text, TermStart.Date, TermEnd.Date);
 

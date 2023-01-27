@@ -8,7 +8,11 @@
         <ToolbarItem x:Name="CancelCourse" Text="Cancel" Clicked="CancelCourse_Clicked"></ToolbarItem>
         <ToolbarItem x:Name="SaveCourse" Text="Save" Clicked="SaveCourse_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
-    
+
+    <NavigationPage.TitleView>
+        <Label Text="Edit Course" FontSize="Medium" TextColor="WhiteSmoke"></Label>
+    </NavigationPage.TitleView>
+
     <ContentPage.Content>
         <StackLayout>
             <Grid Padding="5" RowSpacing="1" ColumnSpacing="1" BackgroundColor="WhiteSmoke">

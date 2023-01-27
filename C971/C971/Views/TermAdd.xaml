@@ -9,6 +9,10 @@
         <ToolbarItem Text="Save" x:Name="SaveTerm" Clicked="SaveTerm_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
+    <NavigationPage.TitleView>
+        <Label Text="Add Term" FontSize="Medium" TextColor="WhiteSmoke"></Label>
+    </NavigationPage.TitleView>
+
     <ContentPage.Content>
         <StackLayout>
             <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="WhiteSmoke">

@@ -150,7 +150,7 @@ namespace C971.Services
 
         #region Assessment Methods
 
-        public static async Task AddAssessment(int courseId, string name, string type, bool startNotification, DateTime courseStart, DateTime courseEnd)
+        public static async Task AddAssessment(int courseId, string name, string type, bool startNotification, DateTime assessStart, DateTime assessEnd)
         {
             await Init();
             var assessment = new Assessment
@@ -159,8 +159,8 @@ namespace C971.Services
                Name = name,
                Type = type,
                StartNotification = startNotification,
-               CourseStart = courseStart,
-               CourseEnd = courseEnd
+               AssessStart = assessStart,
+               AssessEnd = assessEnd
             };
 
             await _db.InsertAsync(assessment);
@@ -179,7 +179,17 @@ namespace C971.Services
 
             return assessments;
         }
-        public static async Task UpdateAssessment(int id, int courseId, string name, string type, bool startNotification, DateTime courseStart, DateTime courseEnd)
+
+        public static async Task<IEnumerable<Assessment>> GetAssessment()
+        {
+            await Init();
+
+            var assessments = await _db.Table<Assessment>().ToListAsync();
+
+            return assessments;
+        }
+
+        public static async Task UpdateAssessment(int id, int courseId, string name, string type, bool startNotification, DateTime assessStart, DateTime assessEnd)
         {
             await Init();
 
@@ -193,8 +203,8 @@ namespace C971.Services
                 assessmentQuery.Name = name;
                 assessmentQuery.Type = type;
                 assessmentQuery.StartNotification = startNotification;
-                assessmentQuery.CourseStart = courseStart;
-                assessmentQuery.CourseEnd = courseEnd;
+                assessmentQuery.AssessStart = assessStart;
+                assessmentQuery.AssessEnd = assessEnd;
 
                 await _db.UpdateAsync(assessmentQuery);
             }
@@ -233,8 +243,8 @@ namespace C971.Services
                 Name = "Task 1",
                 Type = "Objective Assessment",
                 StartNotification = true,
-                CourseStart = DateTime.Today.Date,
-                CourseEnd = DateTime.Today.Date
+                AssessStart = DateTime.Today.Date,
+                AssessEnd = DateTime.Today.Date
             };
             await _db.InsertAsync(assessment);
             Assessment assessment2 = new Assessment
@@ -243,8 +253,8 @@ namespace C971.Services
                 Name = "Task 2",
                 Type = "Performance Assessment",
                 StartNotification = true,
-                CourseStart = DateTime.Today.Date,
-                CourseEnd = DateTime.Today.Date
+                AssessStart = DateTime.Today.Date,
+                AssessEnd = DateTime.Today.Date
             };
             await _db.InsertAsync(assessment2);
         }

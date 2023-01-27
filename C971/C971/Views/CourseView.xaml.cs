@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,14 +21,6 @@ namespace C971.Views
             InitializeComponent();
             _currentCourse = selectedCourse;
             _selectedCourseId = selectedCourse.Id;
-            CourseName.Text = selectedCourse.Name;
-            CourseStatus.Text = selectedCourse.Status;
-            CourseStart.Text = selectedCourse.CourseStart.Date.ToShortDateString();
-            CourseEnd.Text = selectedCourse.CourseEnd.Date.ToShortDateString();
-            InstName.Text = selectedCourse.InstName;
-            InstEmail.Text = selectedCourse.InstEmail;
-            InstPhone.Text = selectedCourse.InstPhone;
-            Notes.Text = selectedCourse.Notes;
             //Notification.IsToggled = selectedCourse.StartNotification;
         }
 
@@ -35,12 +28,29 @@ namespace C971.Views
         {
             base.OnAppearing();
 
-
             int countAssessments = await DatabaseService.GetAssessmentCountAsync(_selectedCourseId);
 
             CountLabel.Text = "Assessments: " + countAssessments.ToString();
 
-            AssessmentCollectionView.ItemsSource = await DatabaseService.GetAssessments(_selectedCourseId);
+            if (countAssessments == 0)
+            {
+                AddAssessment.IsVisible = true;
+                ViewAssessment.IsVisible = false;
+            }
+            else
+            {
+                AddAssessment.IsVisible = false;
+                ViewAssessment.IsVisible = true;
+            }
+            CourseName.Text = _currentCourse.Name;
+            CourseStatus.Text = _currentCourse.Status;
+            CourseStart.Text = _currentCourse.CourseStart.Date.ToShortDateString();
+            CourseEnd.Text = _currentCourse.CourseEnd.Date.ToShortDateString();
+            InstName.Text = _currentCourse.InstName;
+            InstEmail.Text = _currentCourse.InstEmail;
+            InstPhone.Text = _currentCourse.InstPhone;
+            Notes.Text = _currentCourse.Notes;
+
         }
 
         async void DeleteCourse_Clicked(object sender, EventArgs e)
@@ -72,19 +82,29 @@ namespace C971.Views
             await Navigation.PushAsync(new CourseEdit(_currentCourse));
         }
 
-        private void CourseCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
+        async void AddAssessment_Clicked(object sender, EventArgs e)
+        {
+            var courseId = _selectedCourseId;
+
+            await Navigation.PushAsync(new AssessmentAdd(courseId));
         }
 
-        private void AddAssessment_Clicked(object sender, EventArgs e)
+        async void ShareButton_Clicked(object sender, EventArgs e)
         {
-
+            var text = Notes.Text;
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Text = text,
+                Title = "Share Text"
+            });
         }
 
-        private void AssessmentCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        async void ViewAssessment_Clicked(object sender, EventArgs e)
         {
+            var course = _currentCourse;
 
+            await Navigation.PushAsync(new AssociatedAssessments(course));
         }
     }
 }
