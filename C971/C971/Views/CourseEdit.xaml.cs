@@ -16,9 +16,11 @@ namespace C971.Views
     {
         private readonly int _selectedCourseId;
         private readonly int _selectedTermId;
+        private Course _currentCourse;
         public CourseEdit(Course selectedCourse)
         {
             InitializeComponent();
+            _currentCourse = selectedCourse;
             _selectedTermId = selectedCourse.TermId;
             _selectedCourseId = selectedCourse.Id;
             CourseName.Text = selectedCourse.Name;
@@ -72,7 +74,8 @@ namespace C971.Views
 
             await DatabaseService.UpdateCourse(_selectedCourseId, _selectedTermId, CourseName.Text, CourseStatus.SelectedItem.ToString(), Notification.IsToggled,
                 CourseStart.Date, CourseEnd.Date, Notes.Text, InstName.Text, InstEmail.Text, InstPhone.Text);
-            await  Navigation.PopAsync(); 
+
+            await Navigation.PopToRootAsync();
         }
 
         async void CancelCourse_Clicked(object sender, EventArgs e)

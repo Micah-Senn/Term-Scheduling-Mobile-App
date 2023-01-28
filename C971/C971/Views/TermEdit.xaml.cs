@@ -46,7 +46,8 @@ namespace C971.Views
 
 
             await DatabaseService.UpdateTerm(_selectedTermId, TermTitle.Text, TermStart.Date, TermEnd.Date);
-            await Navigation.PopAsync();
+            await Navigation.PopToRootAsync();
+            
         }
 
         async void DeleteTerm_Clicked(object sender, EventArgs e)

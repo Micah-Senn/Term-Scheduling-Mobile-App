@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using C971.Models;
 using Xamarin.Essentials;
@@ -270,7 +269,7 @@ namespace C971.Services
         }
         #endregion
 
-        #region Count Determinations
+        #region Count Methods
         public static async Task<int> GetCourseCountAsync(int selectedTermId)
         {
             int courseCount = await _db.ExecuteScalarAsync<int>("SELECT Count(*) FROM Course WHERE TermId = ?", selectedTermId);
@@ -286,27 +285,7 @@ namespace C971.Services
         }
         #endregion
 
-        #region Looping through table records
-        public static async void LoopingTermTable()
-        {
-            await Init();
-            var allTermRecords = _dbConnection.Query<Term>("SELECT * FROM Term");
 
-            foreach (var termRecord in allTermRecords)
-            {
-                Console.WriteLine("Name " + termRecord.Title);
-            }
-        }
-
-        public static async Task<IEnumerable<Term>> GetNotificationTerms()
-        {
-            await Init();
-            var allTermRecords = _dbConnection.Query<Term>("SELECT * FROM Term");
-
-            return allTermRecords;
-        }
-
-        #endregion
     }
 }
        

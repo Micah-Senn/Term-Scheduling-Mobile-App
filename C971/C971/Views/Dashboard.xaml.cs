@@ -17,6 +17,7 @@ namespace C971.Views
         public Dashboard()
         {
             InitializeComponent();
+
         }
 
         async void AddTerm_Clicked(object sender, EventArgs e)
@@ -44,6 +45,5 @@ namespace C971.Views
                 await Navigation.PushAsync(new TermView(term));
             }
         }
-
     }
 }

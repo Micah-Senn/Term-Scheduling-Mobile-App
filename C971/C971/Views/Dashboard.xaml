@@ -48,8 +48,8 @@
 
 
                             <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Term End</Label>
-                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding TermEnd}"
-                                       FontSize="Medium" VerticalTextAlignment="Center" />
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding TermEnd}" FontSize="Medium" VerticalTextAlignment="Center" />
+                                       
                         </Grid>
 
                     </StackLayout>

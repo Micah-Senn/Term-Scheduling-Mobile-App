@@ -2,6 +2,8 @@
 using C971.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +18,12 @@ namespace C971.Views
     {
         private readonly int _selectedCourseId;
         private Course _currentCourse;
+        
         public CourseView(Course selectedCourse)
         {
             InitializeComponent();
             _currentCourse = selectedCourse;
             _selectedCourseId = selectedCourse.Id;
-            //Notification.IsToggled = selectedCourse.StartNotification;
         }
 
         protected override async void OnAppearing()

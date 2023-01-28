@@ -52,7 +52,7 @@ namespace C971.Views
             await DatabaseService.UpdateAssessment(_selectedAssessId, _selectedCourseId, AssessName.Text, AssessType.SelectedItem.ToString(), Notification.IsToggled,
                 AssessStart.Date, AssessEnd.Date);
 
-            await Navigation.PopAsync();
+            await Navigation.PopToRootAsync();
         }
 
         async void CancelAssess_Clicked(object sender, EventArgs e)
